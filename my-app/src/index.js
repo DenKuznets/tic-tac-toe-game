@@ -75,6 +75,21 @@ class Game extends React.Component {
       default:
         break;
     }
+
+    switch (true) {
+      case i === 0 || i === 3 || i === 6:
+        currentCol = 1;
+        break;
+      case i === 1 || i === 5 || i === 7:
+        currentCol = 2;
+        break;
+      case i === 2 || i === 5 || i === 8:
+        currentCol = 3;
+        break;    
+      default:
+        break;
+    }
+    
     console.log(this.state.history);
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
