@@ -58,6 +58,24 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
+    let currentRow = 0;
+    let currentCol = 0;
+    // console.log(this.props);
+    // let rowNumber = 1;
+    // let colNumber = 1;
+    switch (true) {
+      case i >= 0 && i <= 2:
+        currentRow = 1;
+        break;
+      case i >= 3 && i <= 5:
+        currentRow = 2;
+        break;
+      case i >= 6 && i <= 8:
+        currentRow = 3;
+        break;
+      default:
+        break;
+    }
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
