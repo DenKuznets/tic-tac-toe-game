@@ -85,12 +85,11 @@ class Game extends React.Component {
         break;
       case i === 2 || i === 5 || i === 8:
         currentCol = 3;
-        break;    
+        break;
       default:
         break;
     }
 
-    // console.log(this.state.history);
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -113,7 +112,7 @@ class Game extends React.Component {
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0,
+      xIsNext: step % 2 === 0,
     });
   }
 
@@ -122,13 +121,21 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
     const moves = history.map((step, move) => {
-      const desc = move ?
-        "Go to move #" + move
-        + " " + step.coords
+      const desc = move
+        ? "Go to move #" + move + " " + step.coords
         : "Go to game start";
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button
+            onClick={(event) => {
+              // проверить есть ли у event.target класс .currentElement
+              // если нет: добавить ей класс currentElement, убрать класс .currentElement со всех остальных элементов списка
+              console.log(event.target.parentElement.parentElement);
+              this.jumpTo(move);
+            }}
+          >
+            {desc}
+          </button>
         </li>
       );
     });

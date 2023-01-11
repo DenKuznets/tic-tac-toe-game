@@ -1,0 +1,1 @@
+2.Bold the currently selected item in the move list.
