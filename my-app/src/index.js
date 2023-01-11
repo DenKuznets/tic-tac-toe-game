@@ -52,6 +52,7 @@ class Game extends React.Component {
           squares: Array(9).fill(null),
           rows: Array(9).fill(null),
           cols: Array(9).fill(null),
+          index: null,
         },
       ],
       stepNumber: 0,
@@ -62,6 +63,7 @@ class Game extends React.Component {
   handleClick(i) {
     let currentRow = 0;
     let currentCol = 0;
+
     switch (true) {
       case i >= 0 && i <= 2:
         currentRow = 1;
@@ -80,7 +82,7 @@ class Game extends React.Component {
       case i === 0 || i === 3 || i === 6:
         currentCol = 1;
         break;
-      case i === 1 || i === 5 || i === 7:
+      case i === 1 || i === 4 || i === 7:
         currentCol = 2;
         break;
       case i === 2 || i === 5 || i === 8:
@@ -89,8 +91,8 @@ class Game extends React.Component {
       default:
         break;
     }
-    
-    console.log(this.state.history);
+
+    // console.log(this.state.history);
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -108,6 +110,7 @@ class Game extends React.Component {
           squares: squares,
           rows: rows,
           cols: cols,
+          index: i,
         },
       ]),
       stepNumber: history.length,
@@ -126,10 +129,13 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-
+    // console.log(current);
     const moves = history.map((step, move) => {
+      console.log(step);
       const desc = move ?
         "Go to move #" + move
+        + " col " + step.cols[step.index]
+        + " row " + step.rows[step.index]
         : "Go to game start";
       return (
         <li key={move}>
