@@ -128,9 +128,14 @@ class Game extends React.Component {
         <li key={move}>
           <button
             onClick={(event) => {
-              // проверить есть ли у event.target класс .currentElement
-              // если нет: добавить ей класс currentElement, убрать класс .currentElement со всех остальных элементов списка
-              console.log(event.target.parentElement.parentElement);
+              if (!event.target.classList.contains("currentItem")) {
+                let ol = event.target.closest("ol");
+                let items = ol.querySelectorAll("button");
+                for (let item of items) {
+                  item.classList.remove("currentItem");
+                }
+                event.target.classList.add("currentItem");
+              }
               this.jumpTo(move);
             }}
           >
