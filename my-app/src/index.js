@@ -116,6 +116,15 @@ class Game extends React.Component {
     });
   }
 
+  boldItem(item) {
+    let ol = item.closest("ol");
+    let items = ol.querySelectorAll("button");
+    for (let i of items) {
+      i.classList.remove("currentItem");
+    }
+    item.classList.add("currentItem");
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -129,12 +138,7 @@ class Game extends React.Component {
           <button
             onClick={(event) => {
               if (!event.target.classList.contains("currentItem")) {
-                let ol = event.target.closest("ol");
-                let items = ol.querySelectorAll("button");
-                for (let item of items) {
-                  item.classList.remove("currentItem");
-                }
-                event.target.classList.add("currentItem");
+                this.boldItem(event.target);
               }
               this.jumpTo(move);
             }}
