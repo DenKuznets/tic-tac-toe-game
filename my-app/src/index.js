@@ -20,29 +20,10 @@ class Board extends React.Component {
     );
   }
 
-  createBoard() {
-    let container = React.createElement("div");
-    let boardRow = React.createElement("div", {
-      className: "my-component",
-    });
-    let square = this.renderSquare(1);
-    console.log(boardRow, square);
-    boardRow.append(square);
-    container.append(boardRow);
-    return boardRow;
-  }
-
   render() {
     let squares = [];
     let rows = [];
 
-    // for (let index = 0; index < 3; index++) {
-    //   squares.push(this.renderSquare(index));
-    // }
-    // for (let index = 0; index < 3; index++) {
-    //   let row = <div className="board-row">{squares}</div>;
-    //   rows.push(row);
-    // }
     for (let index = 0; index < 9; index++) {
       squares.push(this.renderSquare(index));
       if (index === 2 || index === 5 || index === 8) {
@@ -53,7 +34,6 @@ class Board extends React.Component {
       }
     }
 
-    // console.log(rows);
     return <div>{rows}</div>;
   }
 }
