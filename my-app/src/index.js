@@ -190,3 +190,4 @@ function calculateWinner(squares) {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game />);
+
