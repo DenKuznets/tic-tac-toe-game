@@ -172,10 +172,6 @@ class Game extends React.Component {
     } else {
       status = "Next player " + (this.state.xIsNext ? "X" : "O");
     }
-    if (this.state.reversed) {
-      console.log(moves);
-      moves.reverse();
-    }
     return (
       <div className="game">
         <div className="game-board">
@@ -192,7 +188,7 @@ class Game extends React.Component {
           >
             Reverse
           </button>
-          {this.state.reversed ? <ol reversed>{moves}</ol> : <ol>{moves}</ol>}
+          {this.state.reversed ? <ol reversed>{moves.reverse()}</ol> : <ol>{moves}</ol>}
         </div>
       </div>
     );
