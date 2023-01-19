@@ -171,6 +171,7 @@ class Game extends React.Component {
       case winner:
         status = "Winner " + winner;
         break;
+      // если победителя нет и нет пустых клеток (массив квадратов не содержит null)
       case !winner && !current.squares.includes(null):
         console.log('draw');
         status = 'Draw';
