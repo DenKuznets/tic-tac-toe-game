@@ -2,9 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+let winnerSquares = [];
+
 function Square(props) {
   return (
-    <button data-square={props.dataSquare} className="square" onClick={props.onClick}>
+    <button
+      data-square={props.dataSquare}
+      className={ props.winner ? "square winner" : "square"}
+      onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -14,6 +19,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        winner={winnerSquares.includes(i)}
         key={i}
         dataSquare={i}
         value={this.props.squares[i]}
@@ -200,16 +206,11 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      console.log('winner line=', lines[i]);
-      highlightWinner(lines[i]);
+      winnerSquares = lines[i];
       return squares[a];
     }
   }
   return null;
-}
-
-function highlightWinner(line) {
-  
 }
 
 // ========================================
