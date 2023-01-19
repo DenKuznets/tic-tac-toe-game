@@ -52,13 +52,14 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      reversed: true,
+      reversed: false,
     };
   }
 
   handleReverseClick() {
-    console.log("click");
-    // toggle reversed false/true
+    this.setState({
+      reversed: !this.state.reversed,
+    });
   }
 
   handleClick(i) {
@@ -167,7 +168,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <button onClick={this.handleReverseClick}>Reverse</button>
+          <button onClick={() => this.handleReverseClick()}>Reverse</button>
           {this.state.reversed ? <ol reversed>{moves}</ol> : <ol>{moves}</ol>}
         </div>
       </div>
