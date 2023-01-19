@@ -7,7 +7,6 @@ let winnerSquares = [];
 function Square(props) {
   return (
     <button
-      data-square={props.dataSquare}
       className={ props.winner ? "square winner" : "square"}
       onClick={props.onClick}>
       {props.value}
@@ -21,7 +20,6 @@ class Board extends React.Component {
       <Square
         winner={winnerSquares.includes(i)}
         key={i}
-        dataSquare={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -39,9 +37,8 @@ class Board extends React.Component {
       // при создании 3 квадратиков создаем ряд и помещаем туда 3 последних квадрата
       if (index === 2 || index === 5 || index === 8) {
         rowKey++;
-        // console.log(rowKey);
         let row = (
-          <div data-row={rowKey} key={rowKey} className="board-row">
+          <div key={rowKey} className="board-row">
             {squares.slice(index - 2, index + 1)}
           </div>
         );
@@ -192,7 +189,6 @@ class Game extends React.Component {
 }
 
 function calculateWinner(squares) {
-  // console.log(squares);
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
