@@ -72,6 +72,7 @@ class Game extends React.Component {
     let currentRow = 0;
     let currentCol = 0;
 
+    // определить текущий ряд куда был вставлен крестик/нолик
     switch (true) {
       case i >= 0 && i <= 2:
         currentRow = 1;
@@ -86,6 +87,7 @@ class Game extends React.Component {
         break;
     }
 
+    // определить текущую колонку куда был вставлен крестик/нолик
     switch (true) {
       case i === 0 || i === 3 || i === 6:
         currentCol = 1;
