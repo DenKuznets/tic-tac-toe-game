@@ -1,5 +1,4 @@
-4. Add a toggle button that lets you sort the moves in either ascending or descending order.
-
-Создать кнопку Reorder
-function Reorder returns button
-button onclick -> {поменять порядок }
+When someone wins, highlight the three squares that caused the win.
+Когда определен победитель, добавить трем квадратам образовавшим победную линию, класс winner
+Получили индекс квадрата в массиве квадратов
+По индексу квадрата определить его button в row
