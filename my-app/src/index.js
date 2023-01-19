@@ -138,6 +138,7 @@ class Game extends React.Component {
   handleReverseClick() {
     this.setState({
       reversed: !this.state.reversed,
+
     });
   }
 
@@ -170,6 +171,10 @@ class Game extends React.Component {
       status = "Winner " + winner;
     } else {
       status = "Next player " + (this.state.xIsNext ? "X" : "O");
+    }
+    if (this.state.reversed) {
+      console.log(moves);
+      moves.reverse();
     }
     return (
       <div className="game">
