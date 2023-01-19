@@ -173,7 +173,6 @@ class Game extends React.Component {
         break;
       // если победителя нет и нет пустых клеток (массив квадратов не содержит null)
       case !winner && !current.squares.includes(null):
-        console.log('draw');
         status = 'Draw';
         break;
       default:
