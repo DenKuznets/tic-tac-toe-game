@@ -53,3 +53,11 @@ ul {
 .currentItem {
   font-weight: bold;
 }
+
+.reverseButton {
+  margin-top: 0.4rem;
+}
+
+.winner {
+  background-color: orange;
+}

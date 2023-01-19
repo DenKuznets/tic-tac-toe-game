@@ -14,6 +14,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -23,14 +24,19 @@ class Board extends React.Component {
   render() {
     let squares = [];
     let rows = [];
+    let rowKey = 0;
 
     for (let index = 0; index < 9; index++) {
       // создаем квадратики
       squares.push(this.renderSquare(index));
       // при создании 3 квадратиков создаем ряд и помещаем туда 3 последних квадрата
       if (index === 2 || index === 5 || index === 8) {
+        rowKey++;
+        // console.log(rowKey);
         let row = (
-          <div className="board-row">{squares.slice(index - 2, index + 1)}</div>
+          <div data-row={rowKey} key={rowKey} className="board-row">
+            {squares.slice(index - 2, index + 1)}
+          </div>
         );
         rows.push(row);
       }
@@ -168,7 +174,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <button onClick={() => this.handleReverseClick()}>Reverse</button>
+          <button className="reverseButton" onClick={() => this.handleReverseClick()}>Reverse</button>
           {this.state.reversed ? <ol reversed>{moves}</ol> : <ol>{moves}</ol>}
         </div>
       </div>
@@ -177,6 +183,7 @@ class Game extends React.Component {
 }
 
 function calculateWinner(squares) {
+  // console.log(squares);
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -190,10 +197,16 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      console.log('winner line=', lines[i]);
+      highlightWinner(lines[i]);
       return squares[a];
     }
   }
   return null;
+}
+
+function highlightWinner(line) {
+  
 }
 
 // ========================================
