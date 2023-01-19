@@ -25,7 +25,9 @@ class Board extends React.Component {
     let rows = [];
 
     for (let index = 0; index < 9; index++) {
+      // создаем квадратики
       squares.push(this.renderSquare(index));
+      // при создании 3 квадратиков создаем ряд и помещаем туда 3 последних квадрата
       if (index === 2 || index === 5 || index === 8) {
         let row = (
           <div className="board-row">{squares.slice(index - 2, index + 1)}</div>
@@ -50,7 +52,13 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      reversed: true,
     };
+  }
+
+  handleReverseClick() {
+    console.log("click");
+    // toggle reversed false/true
   }
 
   handleClick(i) {
@@ -159,7 +167,8 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <button onClick={this.handleReverseClick}>Reverse</button>
+          {this.state.reversed ? <ol reversed>{moves}</ol> : <ol>{moves}</ol>}
         </div>
       </div>
     );
@@ -190,4 +199,3 @@ function calculateWinner(squares) {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Game />);
-
