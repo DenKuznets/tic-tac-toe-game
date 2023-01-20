@@ -1,8 +1,12 @@
-class Board extends React.Component {
+import React from 'react';
+import Square from './Square.js'
+
+
+export default class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
-        winner={winnerSquares.includes(i)}
+        winner={this.props.winnerSquares.includes(i)}
         key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
