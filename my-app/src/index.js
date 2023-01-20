@@ -62,8 +62,9 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      reversed: false,
+      reversed: false,      
     };
+    this.winnerSquares = [];
   }
 
   handleClick(i) {
@@ -145,7 +146,8 @@ class Game extends React.Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const win = calculateWinner(current.squares);
+    const winner = win ? win.winner : null;
     const moves = history.map((step, move) => {
       const desc = move
         ? "Go to move #" + move + " " + step.coords
@@ -217,7 +219,10 @@ function calculateWinner(squares) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       winnerSquares = lines[i];
-      return squares[a];
+      return {
+        winner: squares[a],
+        winnerSquares: lines[i],
+      }
     }
   }
   return null;
