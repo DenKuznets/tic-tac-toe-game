@@ -2,13 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-let winnerSquares = [];
-
 function Square(props) {
   return (
     <button
-      className={ props.winner ? "square winner" : "square"}
-      onClick={props.onClick}>
+      className={props.winner ? "square winner" : "square"}
+      onClick={props.onClick}
+    >
       {props.value}
     </button>
   );
@@ -18,7 +17,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
-        winner={winnerSquares.includes(i)}
+        winner={this.props.winnerSquares.includes(i)}
         key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
@@ -62,9 +61,8 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      reversed: false,      
+      reversed: false,
     };
-    this.winnerSquares = [];
   }
 
   handleClick(i) {
@@ -139,7 +137,6 @@ class Game extends React.Component {
   handleReverseClick() {
     this.setState({
       reversed: !this.state.reversed,
-
     });
   }
 
@@ -147,7 +144,13 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const win = calculateWinner(current.squares);
-    const winner = win ? win.winner : null;
+    let winner;
+    let winnerSquares = [];
+    if (win !== null) {
+      winner = win.winner;
+      winnerSquares = win.winnerSquares;
+    }
+
     const moves = history.map((step, move) => {
       const desc = move
         ? "Go to move #" + move + " " + step.coords
@@ -175,7 +178,7 @@ class Game extends React.Component {
         break;
       // если победителя нет и нет пустых клеток (массив квадратов не содержит null)
       case !winner && !current.squares.includes(null):
-        status = 'Draw';
+        status = "Draw";
         break;
       default:
         status = "Next player " + (this.state.xIsNext ? "X" : "O");
@@ -187,6 +190,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winnerSquares={winnerSquares}
           />
         </div>
         <div className="game-info">
@@ -197,7 +201,11 @@ class Game extends React.Component {
           >
             Reverse
           </button>
-          {this.state.reversed ? <ol reversed>{moves.reverse()}</ol> : <ol>{moves}</ol>}
+          {this.state.reversed ? (
+            <ol reversed>{moves.reverse()}</ol>
+          ) : (
+            <ol>{moves}</ol>
+          )}
         </div>
       </div>
     );
@@ -218,11 +226,10 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      winnerSquares = lines[i];
       return {
         winner: squares[a],
         winnerSquares: lines[i],
-      }
+      };
     }
   }
   return null;
